@@ -16,10 +16,13 @@ class SampleManifestGenerator:
         self.total_associated = 0
 
         from_carol_samples_file = 'BCDC_Metadata_2020Q2_Final.xlsx'
-        out_file = 'Sample-Inventory/BCDC_Metadata_2020Q2.csv'
         self.parse_samples(from_carol_samples_file)
+
+        from_carol_exceptional_fmost = 'BICCN_2020Q1_fMOST.xlsx'
+        self.parse_samples(from_carol_exceptional_fmost, add=True)
+
+        out_file = 'Sample-Inventory/BCDC_Metadata_2020Q2.csv'
         self.generate_inventory(out_file)
-        # still need to check conformity with column order etc of previous quarters
 
     def sanitize_entry(self, entry):
         if type(entry) == str:
@@ -28,10 +31,18 @@ class SampleManifestGenerator:
             entry = re.sub('^\{(.*)\}$', '\\1', entry)
         return entry
 
-    def parse_samples(self, samples_file):
+    def check_additional_columns(self):
+        extras = ['Prior Project', 'CORRECTED Anatomical Structure', 'Prior Anatomical Structure (CV)']
+        for extra in extras:
+            if not extra in self.samples.columns:
+                self.samples[extra] = ''
+
+    def parse_samples(self, samples_file, add=False):
         d = self.d
         self.samples = pd.read_excel(samples_file)
         self.samples = self.samples.applymap(self.sanitize_entry)
+        if add == True:
+            self.check_additional_columns()
         given_handles = sorted(list(set(list(self.samples['Project (CV)']))))
         known_project_handles = list(d['Project'].entities.keys())
         known_collection_handles = list(d['Collection'].entities.keys())
@@ -48,7 +59,7 @@ class SampleManifestGenerator:
             handle_proj = handle + '_proj'
             if handle in known_collection_handles:
                 print(yellow + handle + reset + ' is a known ' + magenta + 'Collection' + reset + ' ' + green + bullet + reset)
-                self.associate_collection_samples(handle, original_handle)
+                self.associate_collection_samples(handle, original_handle, add=add)
             elif handle_proj in known_project_handles:
                 print(green + handle + reset + cyan + '_proj' + reset + ' is a known ' + magenta + 'Project' + reset + '. ', end='')
                 c = self.check_single_collection(handle_proj)
@@ -56,7 +67,7 @@ class SampleManifestGenerator:
                     print(red + 'But there are multiple collections in this project, so sample assignment is ambiguous. ' + bullet + reset)
                 else:
                     print('Single collection ' + yellow + c.get_name() + reset + ' in this project. ' + green + bullet + reset)
-                    self.associate_collection_samples(c.get_name(), original_handle)
+                    self.associate_collection_samples(c.get_name(), original_handle, add=add)
             else:
                 print(red + handle + reset + cyan + '_proj' + reset + ' is not in project list and ' + red + handle + reset +  ' is not in collection list. ' + red + bullet + reset)
             print()
@@ -70,7 +81,7 @@ class SampleManifestGenerator:
                 message = ''
                 print(cyan + handle.ljust(20) + reset + ' ' + message)
         print('')
-        print('Associated ' + green + str(self.total_associated) + reset + '/' + yellow + str(self.samples.shape[0]) + reset + ' samples.')
+        print('Associated so far: ' + green + str(self.total_associated) + reset + ', of ' + yellow + str(self.samples.shape[0]) + reset + ' samples in this round.')
 
     def special_breakout_cases(self):
         return ['zeng_tolias_pseq']
@@ -103,13 +114,21 @@ class SampleManifestGenerator:
             print('  Associated ' + green + '+'.join([str(collections[tag].samples.shape[0]) for tag in tags]) + reset + ' (same samples) samples to ' + yellow + ', '.join([collections[tag].get_name() for tag in tags]) + reset + ' (from \'' + handle + '\' in manifest)')
             print('')
 
-    def associate_collection_samples(self, handle, handle_in_manifest):
+    def associate_collection_samples(self, handle, handle_in_manifest, add=False):
         samples = self.samples
         collection_samples = samples[samples['Project (CV)'] == handle_in_manifest]
         d = self.d
         collection = d[handle]
-        collection.samples = collection_samples
-        print('  Associated ' + green + str(collection.samples.shape[0]) + reset + ' samples to ' + yellow + collection.get_name() + reset + ' (\'' + handle_in_manifest + '\' in manifest)')
+
+        if add == False or not hasattr(collection, 'samples'):
+            collection.samples = collection_samples
+            print('  Associated ' + green + str(collection.samples.shape[0]) + reset + ' samples to ' + yellow + collection.get_name() + reset + ' (\'' + handle_in_manifest + '\' in manifest)')
+        else:
+            cached = deepcopy(collection.samples)
+            collection_samples = collection_samples[cached.columns]
+            collection.samples = pd.concat([cached, collection_samples])
+            print('  Associated ' + green + str(collection_samples.shape[0]) + reset + ' *additional* samples to ' + yellow + collection.get_name() + reset + ' (\'' + handle_in_manifest + '\' in manifest) ' + '(had ' + str(cached.shape[0]) + ')')
+
         self.total_associated = self.total_associated + collection.samples.shape[0]
 
     def check_single_collection(self, handle_proj):
