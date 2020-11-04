@@ -1,0 +1,213 @@
+{
+	"core entity manifest": {
+		"web_resource.csv": {
+			"web_resource_reference_id" :  ["Web resource"],
+			"web_resource_type" :          ["Web resource", "Web resource type"],
+			"web_resource_title" :         ["Web resource", "Title"],
+			"web_resource_short_title" :   ["Web resource", "Short title"],
+			"universal_resource_locator" : ["Web resource", "URL"]
+		},
+		"data_collection.csv": {
+			"data_collection_reference_id" :     ["Collection"],
+			"data_collection_title" :            ["Collection","Title"],
+			"data_collection_short_title" :      ["Collection","Short title"],
+			"data_collection_description" :      ["Collection","Description"],
+			"categorical_access_control_state" : ["Collection","Access control"],
+			"categorical_completion_state" :     ["Collection","Completion state"],
+			"last_updated_at_date" :             ["Collection","Last updated date"]
+		},
+		"project.csv": {
+			"project_reference_id" :                  ["Project"],
+			"project_title" :                         ["Project","Title"],
+			"project_short_title" :                   ["Project","Short title"],
+			"project_description" :                   ["Project","Description"],
+			"project_type" :                          [],
+			"doi_symbol" :                            ["Project","DOI"],
+			"project_citation" :                      ["Project","Citation"],
+			"information_web_resource_reference_id" : ["Project","has information resource"]
+		}
+	},
+	"core entity linkages": {
+		"data_collection_project_is_part_of_sub_program.csv": {
+			"project_reference_id" :     ["Project"],
+			"sub_program_reference_id" : ["Project", "is part of"],
+			"priority_order" :           ["Project", "is part of", "priority order"]
+		},
+		"sub_program_is_part_of_program.csv": {
+			"sub_program_reference_id" : ["Subprogram"],
+			"program_reference_id" :     ["Subprogram", "is part of"]
+		},
+		"data_collection_is_specified_output_of_data_collection_project.csv": {
+			"project_reference_id" :         ["Project"],
+			"data_collection_reference_id" : ["Project", "has output"],
+			"priority_order" :               ["Project", "has output", "priority order"]
+		},
+		"data_collection_project_is_related_to_data_collection_project.csv": {
+			"project_reference_id" :         [],
+			"related_project_reference_id" : [],
+			"priority_order" :               []
+		},
+		"publication_is_about_data_collection.csv": {
+			"data_collection_reference_id" : ["Collection"],
+			"publication_reference_id" :     ["Collection", "is subject of"],
+			"priority_order" :               ["Collection", "is subject of publication", "priority order"]
+		},
+		"web_resource_is_about_data_collection.csv": {
+			"data_collection_reference_id" : ["Collection"],
+			"web_resource_reference_id" :    ["Collection", "is subject of resource"],
+			"priority_order" :               ["Collection", "is subject of resource", "priority order"]
+		},
+		"publication_is_about_data_collection_project.csv": {
+			"project_reference_id" :     ["Project"],
+			"publication_reference_id" : ["Project", "is subject of publication"],
+			"priority_order" :           ["Project", "is subject of publication", "priority order"]
+		},
+		"highlighted_web_resource_is_about_data_collection_project.csv": {
+			"project_reference_id" :      ["Project"],
+			"web_resource_reference_id" : ["Project", "is highlighted by"],
+			"priority_order" :            ["Project", "is highlighted by", "priority order"]
+		},
+		"grant_is_specified_input_of_data_collection_project.csv": {
+			"project_reference_id" : ["Project"],
+			"grant_reference_id" :   ["Project", "is funded by"],
+			"priority_order" :       ["Project", "is funded by", "priority order"]
+		},
+		"license_is_about_data_collection_project.csv": {
+			"project_reference_id" : ["Project"],
+			"license_reference_id" : ["Project", "has use of results limited by"],
+			"priority_order" :       ["Project", "has use of results limited by", "priority order"]
+		},
+		"protocol_is_about_data_collection_project.csv": {
+			"project_reference_id" :  ["Project"],
+			"protocol_reference_id" : ["Project", "has methodology specification"],
+			"priority_order" :        ["Project", "has methodology specification", "priority order"]
+		},
+		"contact_person_realized_in_data_collection_project.csv": {
+			"project_reference_id" : ["Project"],
+			"person_reference_id" :  ["Project", "has contact person"],
+			"email_address" :        ["Project", "has contact person", "email address"],
+			"priority_order" :       ["Project", "has contact person", "priority order"]
+		}
+	},
+	"linkages plus" : {
+		"data_contributor_realized_in_data_collection_project.csv": {
+			"project_reference_id" :      ["Project"],
+			"person_reference_id" :       ["Project", "has contributor"],
+			"organization_reference_id" : ["Project", "has contributor"],
+			"agent_type" :                [],
+			"priority_order" :            ["Project", "has contributor", "priority order"]
+		},
+		"data_creator_realized_in_data_collection_project.csv": {
+			"project_reference_id" :      ["Project"],
+			"person_reference_id" :       ["Project", "has creator"],
+			"organization_reference_id" : ["Project", "has creator"],
+			"agent_type" :                [],
+			"priority_order" :            ["Project", "has creator", "priority order"]
+		}
+	},
+	"auxiliary entity manifest": {
+		"protocol.csv": {
+			"protocol_reference_id" :          ["Protocol"],
+			"protocol_title" :                 ["Protocol", "Title"],
+			"protocol_short_title" :           ["Protocol", "Short title"],
+			"view_web_resource_reference_id" : ["Protocol", "has view resource"]
+		},
+		"person.csv": {
+			"person_reference_id" : ["Person"],
+			"person_name" :         ["Person", "Name"],
+			"person_given_name" :   ["Person", "Given name"],
+			"person_family_name" :  ["Person", "Family name"],
+			"orcid_symbol" :        ["Person", "ORCID"]
+		},
+		"organization.csv": {
+			"organization_reference_id" : ["Organization"],
+			"organization_name" :         ["Organization", "Name"],
+			"ror_symbol" :                ["Organization", "ROR"]
+		},
+		"publication.csv": {
+			"publication_reference_id" :  ["Publication"],
+			"publication_title" :         ["Publication", "Title"],
+			"publication_year" :          ["Publication", "Year"],
+			"first_author_reference_id" : ["Publication", "has first author"],
+			"doi_symbol" :                ["Publication", "DOI"],
+			"pubmed_id" :                 ["Publication", "PubMed ID"]
+		},
+		"license.csv": {
+			"license_reference_id" :                  ["License"],
+			"license_title" :                         ["License", "Title"],
+			"license_short_title" :                   ["License", "Short title"],
+			"information_web_resource_reference_id" : ["License", "has information resource"]
+		},
+		"grant.csv": {
+			"grant_reference_id" :          ["Grant"],
+			"grant_title" :                 ["Grant", "Title"],
+			"grant_identifier" :            ["Grant", "Identifier"],
+			"funding_agency_reference_id" : ["Grant", "from funding agency"],
+			"awardee_reference_id" :        ["Grant", "awarded to"],
+			"report_symbol" :               ["Grant", "REPORT symbol"]
+		}
+	},
+	"vocab": {
+		"modality.csv": {
+			"modality_name" : ["Modality"]
+		},
+		"species.csv": {
+			"species_name" : ["Species"]
+		},
+		"specimen_type.csv": {
+			"specimen_type_name" : ["Specimen type"]
+		},
+		"technique.csv": {
+			"technique_name" : ["Technique"]
+		}
+	},
+	"dc props": {
+		"data_collection_reported_specimen_count.csv": {
+			"data_collection_reference_id" : ["Collection"],
+			"specimen_type_name" :           ["Collection", "Specimen type"],
+			"reported_count" :               ["Collection", "Reported count"]
+		},
+		"data_collection_modality_classification.csv": {
+			"data_collection_reference_id" : ["Collection"],
+			"modality_name" :                ["Collection", "is data of type"]
+		},
+		"data_collection_species_classification.csv": {
+			"data_collection_reference_id" : ["Collection"],
+			"species_name" :                 ["Collection", "is data about"]
+		},
+		"data_collection_specimen_type_classification.csv": {
+			"data_collection_reference_id" : ["Collection"],
+			"specimen_type_name" :           ["Collection", "has samples of type"]
+		},
+		"data_collection_technique_classification.csv": {
+			"data_collection_reference_id" : ["Collection"],
+			"technique_name" :               ["Collection", "was collected using"]
+		}
+	},
+	"proj props": {
+		"data_publisher_realized_in_data_collection_project.csv": {
+			"project_reference_id" :      ["Project"],
+			"organization_reference_id" : ["Project", "has publisher"]
+		},
+		"data_publication_year_is_about_data_collection_project.csv": {
+			"project_reference_id" :  ["Project"],
+			"data_publication_year" : ["Project", "Data publication year"]
+		},
+		"data_collection_project_modality_classification.csv": {
+			"project_reference_id" : ["Project"],
+			"modality_name" :        ["Project", "involves data of type"]
+		},
+		"data_collection_project_species_classification.csv": {
+			"project_reference_id" : ["Project"],
+			"species_name" :         ["Project", "involves data about"]
+		},
+		"data_collection_project_specimen_type_classification.csv": {
+			"project_reference_id" : ["Project"],
+			"specimen_type_name" :   ["Project", "collected samples of type"]
+		},
+		"data_collection_project_technique_classification.csv": {
+			"project_reference_id" : ["Project"],
+			"technique_name" :       ["Project", "used"]
+		}
+	}
+}
