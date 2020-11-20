@@ -453,7 +453,7 @@ sc = BCDCSampleCoordination(
     sample_directory = 'Sample-Inventory',
     year = 2020,
     quarter = 2,
-    c2m2_directory = 'bcdc_partial'
+    c2m2_directory = 'tsvs'
 )
 sc.write_out()
 
