@@ -452,7 +452,7 @@ sc = BCDCSampleCoordination(
     metadata_directory = '../dataset_inventory/central_store/idk_templated_csvs',
     sample_directory = 'Sample-Inventory',
     year = 2020,
-    quarter = 2,
+    quarter = 3,
     c2m2_directory = 'tsvs'
 )
 sc.write_out()
