@@ -170,7 +170,7 @@ class SampleManifestGenerator:
                     df2.loc[row, 'Project (CV)'] = project.get_name()
                 df2 = df2[columns]
                 df = pd.concat([df, df2])
-        self.samples_out = df
+        self.samples_out = df.drop_duplicates()
         self.samples_out.to_csv(out_file, index=False)
 
     def collection_is_part_of_program(self, collection, program):
