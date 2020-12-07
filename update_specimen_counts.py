@@ -33,13 +33,14 @@ class UpdateSpecimenCounts:
                 #     continue
 
                 print(green  + 'Updated ... count for             ' + reset + yellow + c.get_name().ljust(25) + reset + ' ' + red + old.ljust(9) + reset + ' => ' + green + str(count) + reset)
-                c['Reported count'] = str(count)
 
                 print(green + '            subspecimen count for ' + reset + yellow + c.get_name().ljust(25) + reset + ' ' + red + ' '.ljust(9) + reset + ' => ' + cyan + str(subspecimen_count) + reset)
-                c['Reported subspecimen count'] = str(subspecimen_count)
+
+                c['Reported count'] = str(subspecimen_count)
+                c['Reported sample count'] = str(count)
 
                 print()
-        print(red + 'Warning: ' + reset + 'The *sub*specimen counts are not being exported. CSV38 does not support this field.')
+        print(red + 'Warning: ' + reset + 'The sample or specimen counts are not being exported. CSV38 does not support this field in addition to the *sub*specimen count field.')
 
 if __name__=='__main__':
     source_directory = '../dataset_inventory/central_store/idk_templated_csvs/'
