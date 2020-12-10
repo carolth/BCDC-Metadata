@@ -1,6 +1,6 @@
 While there are probably some differences between the metadata schema/collection between each of the archives and the BCDC, it would be very convenient to express these differences as a series of *inclusions* and *omissions* with respect to a common ideal schema. This, as opposed to retaining genuine differences between term meanings or underlying data structures.
 
-**A somewhat formal approach**. All 4 groups fill out a table, indicating whether a given data item is:
+**A somewhat formal approach**. All 4 groups fill out a table [(Google Sheet)](https://docs.google.com/spreadsheets/d/1Kpema3VoWjEoow7HFRHe_-bQHOEPAkwC2DVpTNLVN94/edit?usp=sharing), indicating whether a given data item is:
 1. easy or hard to obtain,
 2. theoretically available directly from data providers, or else requires a value-adding annotation or lookup operation,
 3. already used in the group's own operations in some form,
