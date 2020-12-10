@@ -1,4 +1,4 @@
-While there are probably some differences between the metadata schema/collection between each of the archives and the BCDC, it would be very convenient to express these differences as a series of *inclusions* and *omissions* with respect to a common ideal schema. This, as opposed to retaining genuine differences between term meanings or underlying data structures.
+While there are differences between the metadata schema/collection between each of the archives (+ BCDC), it would be very convenient to express these differences as a series of *inclusions* and *omissions* with respect to a common ideal schema. This, as opposed to retaining genuine differences between term meanings or underlying data structures.
 
 **A somewhat formal approach**. All 4 groups fill out a table [(Google Sheet)](https://docs.google.com/spreadsheets/d/1Kpema3VoWjEoow7HFRHe_-bQHOEPAkwC2DVpTNLVN94/edit?usp=sharing), indicating whether a given data item is:
 1. easy or hard to obtain,
