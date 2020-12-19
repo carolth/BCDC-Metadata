@@ -35,4 +35,8 @@ activate "Archive" #DarkMagenta
 
 The workflow diagram above was produced from the PlantUML code (at the beginning of this markdown document) using [plantuml.jar](https://plantuml.com/download).
 
-To edit the diagram, change the code and run the following at the command line: `java -jar plantuml.jar -verbose README.md -o images`
+To edit the diagram, change the code and run the following at the command line:
+
+```
+java -jar plantuml.jar -verbose README.md -o images
+```
