@@ -1,29 +1,37 @@
-![workflow_diagram.png](workflow_diagram.png)
+![images/README.png](images/README.png)
 
-The workflow diagram above was produced using PlantUML (the renderer is contained in 1 file, [plantuml.jar](https://plantuml.com/download)).
+The workflow diagram above was produced using PlantUML (download [plantuml.jar here](https://plantuml.com/download)).
+
+To edit the diagram, change the code below and run at the command line: `java -jar plantuml.jar -verbose README.md -o images`
 
 ```
 @startuml
 
-participant User
+participant "Data submitter"
+database "Archive"
+collections "BCDC"
 
-User -> A: DoWork
-activate A
+"Data submitter" -> "Archive": Upload data to private directory
+activate "Archive" #FFBBBB
 
-A -> B: << createRequest >>
-activate B
+"Data submitter" -> "Archive": Upload file manifest
+activate "Archive" #DarkSalmon
 
-B -> C: DoWork
-activate C
+"Data submitter" -> "Archive": QC data and mark for publishing
 
-C --> B: WorkDone
-destroy C
+note over "Archive": Validate files (checksum)
 
-B --> A: RequestCreated
-deactivate B
+"Archive" -> "BCDC": Send file manifest
+activate "BCDC" #DarkSalmon
 
-A -> User: Done
-deactivate A
+note over "BCDC": Log need for metadata
+"BCDC" -> "Data submitter": Solicit metadata per project/collection
+
+"Data submitter" -> "BCDC": Provide project/collection metadata
+activate "BCDC" #DarkMagenta
+
+"BCDC" -> "Archive": Pass along metadata
+activate "Archive" #DarkMagenta
 
 @enduml
 ```
