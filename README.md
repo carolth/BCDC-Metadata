@@ -2,7 +2,7 @@
 
 The workflow diagram above was produced using PlantUML (download [plantuml.jar here](https://plantuml.com/download)).
 
-To edit the diagram, change the code below and run at the command line: `java -jar plantuml.jar -verbose README.md -o images`
+To edit the diagram, change the PlantUML code below and run the following at the command line: `java -jar plantuml.jar -verbose README.md -o images`
 
 ```
 @startuml
